@@ -14,4 +14,4 @@ class Node:
                 return requests.get(self._uri + endpoint)
 
     def head(self):
-        return None
+        return self._request('/blocks/head')

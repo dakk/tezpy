@@ -1,3 +1,5 @@
+import crypto
+
 PREFIXES = {
     'tz1': [6, 161, 159],
     'tz2': [6, 161, 161],
@@ -35,19 +37,39 @@ PREFIXES = {
 
 
 class PublicKey:
+    def __init__(self, key):
+        self._key = key
+
+    @staticmethod
+    def fromHex(hexd):
+        return PublicKey(crypto.keyFromHex(hexd, True))
+
     def verify(self, data, signature):
-        return False
+        return crypto.verify(self._key, data, signature)
+
+    def toHex(self):
+        return crypto.keyToHex(self._key)
 
 
 class PrivateKey:
+    def __init__(self, key):
+        self._key = key
+
+    @staticmethod
+    def fromHex(hexd):
+        return PrivateKey(crypto.keyFromHex(hexd, False))
+
     def sign(self, data):
-        return None
+        return crypto.sign(self._key, data)
+
+    def toHex(self):
+        return crypto.keyToHex(self._key)
 
 
 class KeyPair:
-    def __init__(self):
-        self._pubKey = None
-        self._privKey = None
+    def __init__(self, priv, pub):
+        self._pubKey = PublicKey(pub)
+        self._privKey = PrivateKey(priv)
 
     @staticmethod
     def fromMnemonic(words):
@@ -58,6 +80,21 @@ class KeyPair:
     def fromFundarising(email, password, words):
         ''' Create a keypair from fundraising data '''
         return None
+
+    @staticmethod
+    def generate():
+        ''' Create a keypair from a random generated key '''
+        (priv, pub) = crypto.randomKeys()
+        return KeyPair(priv, pub)
+
+    def address(self):
+        ''' Returns the string representation of the keypair address '''
+        hk = self._pubKey.toHex()
+        return crypto.b58encode_check(hk, PREFIXES['tz1'])
+
+    def public(self):
+        ''' Returns the public key object '''
+        return self._pubKey
 
     def sign(self, data):
         ''' Sign data '''
