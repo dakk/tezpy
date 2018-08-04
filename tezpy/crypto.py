@@ -10,9 +10,9 @@ import nacl
 
 def hash(fun, data, hexd):
     if hexd:
-        return fun(data).digest()
-    else:
         return fun(data).hexdigest()
+    else:
+        return fun(data).digest()
 
 
 def sha256(data, hexd=False):
@@ -20,7 +20,7 @@ def sha256(data, hexd=False):
 
 
 def sha512(data, hexd=False):
-    return hash(hashlib.sha256, data, hexd)
+    return hash(hashlib.sha512, data, hexd)
 
 
 def b58encode_check(data, prefix):
@@ -28,7 +28,7 @@ def b58encode_check(data, prefix):
 
 
 def b58decode_check(data, prefix):
-    return base58.b58decode_check(data).slice(prefix)
+    return base58.b58decode_check(data)[len(prefix):]
 
 
 def randomKeys():
