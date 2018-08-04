@@ -1,5 +1,5 @@
 import unittest
-from tezpy import crypto
+from tezpy import crypto, constants
 
 class TestHash(unittest.TestCase):
     def test_sha256_hex(self):
@@ -17,7 +17,7 @@ class TestHash(unittest.TestCase):
 
 class TestBase58Check(unittest.TestCase):
     def test_base58c_encode(self):
-        self.assertEqual(crypto.b58encode_check(crypto.sha256(b'FOO'), bytes([6, 161, 159])), b'')
+        self.assertEqual(crypto.b58encode_check(crypto.sha256(b'FOO'), constants.PREFIXES['tz1']), b'')
 
     def test_base58c_decode(self):
         pass
