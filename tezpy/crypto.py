@@ -8,11 +8,16 @@ import base58
 import nacl
 
 
-def hash(fun, data, hexd):
-    if hexd:
-        return fun(data).hexdigest()
+def hash(fun, data, hexd, digest_size=None):
+    if digest_size != None:
+        d = fun(data, digest_size=digest_size)
     else:
-        return fun(data).digest()
+        d = fun(data)
+
+    if hexd:
+        return d.hexdigest()
+    else:
+        return d.digest()
 
 
 def sha256(data, hexd=False):
@@ -21,6 +26,10 @@ def sha256(data, hexd=False):
 
 def sha512(data, hexd=False):
     return hash(hashlib.sha512, data, hexd)
+
+
+def blake2b(size, data, hexd=False):
+    return hash(hashlib.blake2b, data, hexd, digest_size=size)
 
 
 def b58encode_check(data, prefix):
@@ -47,6 +56,7 @@ def verify(vk, data, signature):
 
 def keyToHex(key):
     return key.encode(encoder=nacl.encoding.HexEncoder)
+
 
 def keyFromHex(hexd, public=False):
     if public:
