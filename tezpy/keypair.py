@@ -1,7 +1,10 @@
 import crypto
+import constants
 
 
 class PublicKey:
+    ''' Class for public keys '''
+
     def __init__(self, key):
         self._key = key
 
@@ -17,6 +20,8 @@ class PublicKey:
 
 
 class PrivateKey:
+    ''' Class for private keys '''
+
     def __init__(self, key):
         self._key = key
 
@@ -32,6 +37,8 @@ class PrivateKey:
 
 
 class KeyPair:
+    ''' Class for key pairs (private and public) '''
+
     def __init__(self, priv, pub):
         self._pubKey = PublicKey(pub)
         self._privKey = PrivateKey(priv)
@@ -55,7 +62,7 @@ class KeyPair:
     def address(self):
         ''' Returns the string representation of the keypair address '''
         hk = self._pubKey.toHex()
-        return crypto.b58encode_check(hk, PREFIXES['tz1'])
+        return crypto.b58encode_check(hk, constants.PREFIXES['tz1'])
 
     def public(self):
         ''' Returns the public key object '''

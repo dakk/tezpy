@@ -1,8 +1,23 @@
 class Operation:
+    ''' Generic Operation class
+
+    Base class for all Tezos operations
+    '''
+
     def __init__(self, kind):
         self.kind = kind
 
-    def sign(self, key):
+    def sign(self, key, node, inject=False):
+        ''' Sign an operation
+
+        Parameters:
+            keys - keypair object
+            node - node instance, necessary to create the signed operation 
+            inject - True if you want to broadcast the transaction
+
+        Returns:
+            Return the signed operation
+        '''
         pass
 
     def toJson(self):
@@ -12,6 +27,10 @@ class Operation:
 
 
 class ActivateOperation(Operation):
+    ''' Activate Operation class
+
+    Operation which activates an account given its pkh and kyc code (secret)
+    '''
     KIND = 'activate_account'
 
     def __init__(self, pkh, secret):
@@ -45,6 +64,11 @@ class BallotOperation(Operation):
 
 
 class ManagerOperation(Operation):
+    ''' Manager Operation abstract class
+
+    Base Operation for Manager operations 
+    '''
+
     def __init__(self, kind, fee, gas_limit, storage_limit):
         super().__init__(kind)
         self.fee = fee
@@ -60,6 +84,10 @@ class ManagerOperation(Operation):
 
 
 class TransactionOperation(ManagerOperation):
+    ''' Transaction Operation class
+
+    Send an amount of XTZ to a given address
+    '''
     KIND = 'transaction'
 
     def __init__(self, destination, amount, fee, gas_limit=None, storage_limit=None):
@@ -111,6 +139,10 @@ class RevealOperation(ManagerOperation):
 
 
 class DelegationOperation(ManagerOperation):
+    ''' Delegation Operation class
+
+    Delegate the stake to another delegate
+    '''
     KIND = 'delegation'
 
     def __init__(self, delegate, fee, gas_limit=None, storage_limit=None):
