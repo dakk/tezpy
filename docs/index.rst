@@ -1,4 +1,4 @@
-Welcome to tezpy's documentation!
+TezPy documentation
 =================================
 
 .. toctree::
