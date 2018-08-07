@@ -28,6 +28,10 @@ version = ''
 # The full version, including alpha/beta/rc tags
 release = ''
 
+try:
+    import sphinx_rtd_theme
+except ImportError:
+    sphinx_rtd_theme = None
 
 # -- General configuration ---------------------------------------------------
 
@@ -157,5 +161,13 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
+
+if sphinx_rtd_theme:
+    html_theme = "sphinx_rtd_theme"
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+else:
+    html_theme = "default"
+
+RTD_NEW_THEME = True
 
 # -- Extension configuration -------------------------------------------------
