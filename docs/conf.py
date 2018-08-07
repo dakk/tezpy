@@ -18,6 +18,8 @@
 
 
 # -- Project information -----------------------------------------------------
+import sys
+import os
 
 project = 'tezpy'
 copyright = '2018, Davide Gessa'
@@ -33,6 +35,8 @@ try:
 except ImportError:
     sphinx_rtd_theme = None
 
+sys.path.insert(0, os.path.abspath('../'))
+from tezpy import *
 # -- General configuration ---------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -52,7 +56,7 @@ extensions = [
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+#templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -73,7 +77,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = [] #['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'

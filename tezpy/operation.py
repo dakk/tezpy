@@ -16,9 +16,20 @@ class Operation:
             inject - True if you want to broadcast the transaction
 
         Returns:
-            Return the signed operation
+            Return the (signed operation, operation hash)
         '''
-        pass
+        opbytes, opobject = node.forgeOperations([self])
+        sig = key.sign(opbytes)
+        opobject['signature'] = sig
+        sigdata = opbytes + sig
+
+        if inject:
+            return (sigdata, node.injectOperation(sigdata))
+        return (sigdata, None)
+
+    def toHex(self, node):
+        opbytes, opobject = node.forgeOperations([self])
+        return opbytes
 
     def toJson(self):
         return {
