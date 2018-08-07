@@ -1,10 +1,15 @@
-# tezpy
-A python library for Tezos
+Welcome to tezpy's documentation!
+=================================
 
-# Requirements
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
-This library requires python3.6 and the following deps:
 
-- requests~2.19.1
-- base58~1.0.0
-- pynacl~1.2.1
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
