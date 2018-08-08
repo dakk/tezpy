@@ -1,8 +1,8 @@
 import unittest
-from tezpy import crypto, constants
+from tezpy import crypto, constants, keypair, node, contract, operation
 
 
-class TestHash(unittest.TestCase):
+class CryptoTestHash(unittest.TestCase):
     def test_sha256_hex(self):
         self.assertEqual(crypto.sha256(
             b'FOO', True), '9520437ce8902eb379a7d8aaa98fc4c94eeb07b6684854868fa6f72bf34b0fd3')
@@ -32,7 +32,7 @@ class TestHash(unittest.TestCase):
                          'dbc3933e66f7e5f7759e021b497e97a97806c101')
 
 
-class TestBase58Check(unittest.TestCase):
+class CryptoTestBase58Check(unittest.TestCase):
     def test_base58c_encode(self):
         self.assertEqual(crypto.b58encode_check(crypto.blake2b(
             20, b'FOO'), constants.PREFIXES['tz1']), b'tz1fg2xvxfwADx1yR4ZZgf33nFSNUUnamwVF')
