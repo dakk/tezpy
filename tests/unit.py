@@ -1,6 +1,9 @@
 import unittest
-from tezpy import crypto, constants, keypair, node, contract, operation
+from tezpy import crypto, constants, keypair, node, contract, operation, bip39
 
+class Bip39(unittest.TestCase):
+    def test(self):
+        pass
 
 class CryptoTestHash(unittest.TestCase):
     def test_sha256_hex(self):
